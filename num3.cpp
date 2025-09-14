@@ -1,38 +1,38 @@
-#include <iostream>
+#include <iostream> //ок
 #include <vector>
-#include <cstdlib>
-#include <ctime>
 
 int main() {
-    std::srand(std::time(0));
-    int n, k;
+    int n, k = 0;
     std::cin >> n >> k;
+    
+    //снег по улицам
     std::vector<int> streets(n + 1, 0);
-
-    std::cout << "Events:\n";
+    
+    //обрабатываем запросы
     for (int i = 0; i < k; i++) {
-        int type = std::rand() % 2 + 1;
-        int a = std::rand() % n + 1;
-        int b = std::rand() % n + 1;
-
+        int type = 0;
+        std::cin >> type;
+        
         if (type == 1) {
-            int x = std::rand() % 100 + 1;
-            streets[a] += x;
-            std::cout << "1 " << a << " " << x << "\n";
+            //добавление снега на улицу
+            int str_id, snow = 0;
+            std::cin >> str_id >> snow;
+            streets[str_id] += snow;
+            
         } else {
-            std::cout << "2 " << a << " " << b << "\n";
-            int sum = 0;
-            for (int j = a; j <= b; j++) {
-                sum += streets[j];
+            //подсчет суммы снега на диапазоне улиц
+            int first_str, second_str;
+            std::cin >> first_str >> second_str;
+            
+            //сумма всего снега
+            int total_snow = 0;
+            for (int j = first_str; j <= second_str; j++) {
+                total_snow += streets[j];
             }
-            std::cout << "Sum: " << sum << "\n";
+            
+            std::cout << total_snow << "\n";
         }
     }
-
-    std::cout << "\nFinal snow amounts:\n";
-    for (int i = 1; i <= n; i++) {
-        std::cout << streets[i] << " ";
-    }
-
+    
     return 0;
 }

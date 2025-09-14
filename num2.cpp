@@ -1,50 +1,43 @@
-#include <iostream>   //n2
+#include <iostream>  //ок
 #include <vector>
-#include <cstdlib>
-#include <ctime>
 
 std::vector<int> parent;
-
-int find(int u) {
-    if (parent[u] == u) return u;
-    return find(parent[u]);
+//поиск корня вершины
+int find(int x) {
+    if (parent[x] == x) return x;
+    return find(parent[x]);
 }
 
-void unite(int u, int v) {
-    u = find(u);
-    v = find(v);
-    if (u != v) parent[v] = u;
+//обьединение множеств с вершинами x, y
+void unite(int x, int y) {
+    x = find(x);
+    y = find(y);
+    if (x != y) parent[y] = x;
 }
 
 int main() {
-    std::srand(std::time(0));
-    int N, M;
-    std::cin >> N >> M;
-    parent.resize(N + 1);
+    int n, k = 0;
+    std::cin >> n >> k;
+    parent.resize(n + 1);
 
-    for (int i = 1; i <= N; i++) {
+    for (int i = 1; i <= n; i++) {
         parent[i] = i;
     }
 
-    std::cout << "Connections:\n";
-    for (int i = 0; i < M; i++) {
-        int u = std::rand() % N + 1;
-        int v = std::rand() % N + 1;
-        std::cout << u << " - " << v << "\n";
-        unite(u, v);
+    //запись ребер
+    for (int i = 0; i < k; i++) {
+        int x, y = 0;
+        std::cin >> x >> y;
+        unite(x, y);
     }
 
-    std::cout << "\nParents:\n";
-    for (int i = 1; i <= N; i++) {
-        std::cout << parent[i] << " ";
-    }
-
+    //считаем компоненты связности(если корень вершины - она сама)
     int components = 0;
-    for (int i = 1; i <= N; i++) {
+    for (int i = 1; i <= n; i++) {
         if (parent[i] == i) components++;
     }
 
-    std::cout << "\n\nConnections needed: " << components - 1 << "\n";
+    std::cout << components - 1 << "\n";
 
     return 0;
 }
