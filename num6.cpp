@@ -20,6 +20,8 @@ int main() {
 
     pairs = std::min(pairs, a + b - bad_b);
     pairs = std::min(pairs, x + y - bad_y);
+
+    results.push_back(pairs);
   }
     
   for (int i = 0; i < n; i++) {
